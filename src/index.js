@@ -58,7 +58,7 @@ let sequelize;
 
 switch (config.storage.type) {
 case 'mysql':
-	log.info('Connecting to MySQL database...');
+	log.info('Verbinde zur MySQL Datenbank...');
 	sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
 		dialect: 'mysql',
 		host: process.env.DB_HOST,
@@ -66,7 +66,7 @@ case 'mysql':
 	});
 	break;
 case 'mariadb':
-	log.info('Connecting to MariaDB database...');
+	log.info('Verbinde zur MariaDB Datenbank...');
 	sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
 		dialect: 'mariadb',
 		host: process.env.DB_HOST,
@@ -74,7 +74,7 @@ case 'mariadb':
 	});
 	break;
 case 'postgre':
-	log.info('Connecting to PostgreSQL database...');
+	log.info('Verbinde zur PostgreSQL Datenbank...');
 	sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
 		dialect: 'postgres',
 		host: process.env.DB_HOST,
@@ -82,7 +82,7 @@ case 'postgre':
 	});
 	break;
 case 'microsoft':
-	log.info('Connecting to Microsoft SQL Server database...');
+	log.info('Verbinde zur Microsoft SQL Server Datenbank...');
 	sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
 		dialect: 'mssql',
 		host: process.env.DB_HOST,
@@ -90,7 +90,7 @@ case 'microsoft':
 	});
 	break;
 default:
-	log.info('Using SQLite storage');
+	log.info('Nutze SQLite Speicher');
 	sequelize = new Sequelize({
 		dialect: 'sqlite',
 		storage: join(__dirname, '../user/storage.db'),
@@ -140,10 +140,10 @@ const commands = fs.readdirSync(join(__dirname, 'commands')).filter(file => file
 for (const file of commands) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
-	log.console(log.format(`> Loaded &7${config.prefix}${command.name}&f command`));
+	log.console(log.format(`> &7${config.prefix}${command.name}&f Command geladen`));
 }
 
-log.info(`Loaded ${events.length} events and ${commands.length} commands`);
+log.info(`${events.length} Event und ${commands.length} Commands vorhanden`);
 
 const one_day = 1000 * 60 * 60 * 24;
 const txt = '../user/transcripts/text';

@@ -18,8 +18,8 @@ module.exports = {
 		if (message.channel.type === 'dm' && !message.author.bot) {
 			log.console(`Received a DM from ${message.author.tag}: ${message.cleanContent}`);
 			return message.channel.send(`Hello there, ${message.author.username}!
-I am the support bot for **${guild}**.
-Type \`${config.prefix}new\` on the server to create a new ticket.`);
+Ich bind der Supporter für **${guild}**.
+Schreib \`${config.prefix}new\` um ein neues Ticket zu erstellen.`);
 		} // stop here if is DM
 
 		/**
@@ -54,15 +54,15 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 
 		if (!command || commandName === 'none') return; // not an existing command
 
-		if (message.guild.id !== guild.id) return message.reply(`This bot can only be used within the "${guild}" server`); // not in this server
+		if (message.guild.id !== guild.id) return message.reply(`Dieser Bot kann nur auf dem Server "${guild}" genutzt werden`); // not in this server
 
 		if (command.permission && !message.member.hasPermission(command.permission)) {
-			log.console(`${message.author.tag} tried to use the '${command.name}' command without permission`);
+			log.console(`${message.author.tag} versuchte '${command.name}' ohne Berechtigungen zu nutzen`);
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
-					.setTitle('❌ No permission')
-					.setDescription(`**You do not have permission to use the \`${command.name}\` command** (requires \`${command.permission}\`).`)
+					.setTitle('❌ Keine Berechtigung')
+					.setDescription(`**Du hast keine Rechte für den \`${command.name}\` command** (du benötigst \`${command.permission}\`).`)
 					.setFooter(guild.name, guild.iconURL())
 			);
 		}
@@ -71,8 +71,8 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
-					.addField('Usage', `\`${config.prefix}${command.name} ${command.usage}\`\n`)
-					.addField('Help', `Type \`${config.prefix}help ${command.name}\` for more information`)
+					.addField('Nutzung', `\`${config.prefix}${command.name} ${command.usage}\`\n`)
+					.addField('Hilfe', `Tippe \`${config.prefix}help ${command.name}\` für mehr Informationen`)
 					.setFooter(guild.name, guild.iconURL())
 			);
 		}
@@ -88,11 +88,11 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 
 			if (now < expirationTime) {
 				const timeLeft = (expirationTime - now) / 1000;
-				log.console(`${message.author.tag} attempted to use the '${command.name}' command before the cooldown was over`);
+				log.console(`${message.author.tag} versuchte '${command.name}' zu nutzen, bevor der Cooldown abgelaufen war`);
 				return message.channel.send(
 					new MessageEmbed()
 						.setColor(config.err_colour)
-						.setDescription(`❌ Please wait ${timeLeft.toFixed(1)} second(s) before reusing the \`${command.name}\` command.`)
+						.setDescription(`❌ Bitte warte ${timeLeft.toFixed(1)} Sekunden, bevor du \`${command.name}\` erneut nutzt.`)
 						.setFooter(guild.name, guild.iconURL())
 				);
 			}
@@ -103,11 +103,11 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 
 		try {
 			command.execute(client, message, args, log, {config, Ticket, Setting});
-			log.console(`${message.author.tag} used the '${command.name}' command`);
+			log.console(`${message.author.tag} nutzte '${command.name}'`);
 		} catch (error) {
-			log.warn(`An error occurred whilst executing the '${command.name}' command`);
+			log.warn(`Ein Fehler ist beim ausführen von '${command.name}' aufgetreten`);
 			log.error(error);
-			message.channel.send(`❌ An error occurred whilst executing the \`${command.name}\` command.`);
+			message.channel.send(`❌ Ein Fehler trat beim Ausführen von \`${command.name}\` auf.`);
 		}
 	}
 };

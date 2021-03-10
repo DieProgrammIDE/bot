@@ -27,8 +27,8 @@ module.exports = (leeks) => {
    ##     ##  ##    ## ##   ##  ##          ##    ##    ##
    ##    ####  ######  ##    ## ########    ##     ######
 `));
-	console.log(leeks.colours.cyanBright(`DiscordTickets bot v${version} by eartharoid`));
+	console.log(leeks.colours.cyanBright(`DiscordTickets bot v${version} von eartharoid, übersetzt durch AnderCrafter`));
 	console.log(leeks.colours.cyanBright(homepage + '\n'));
-	console.log(leeks.colours.cyanBright(`Please ${link('donate', 'https://ko-fi.com/eartharoid')} if you find this bot useful`));
+	console.log(leeks.colours.cyanBright(`Bitte ${link('donate', 'https://ko-fi.com/eartharoid')}, wenn du den Bot nützlich findest`));
 	console.log('\n\n');
 };

@@ -18,7 +18,7 @@ const toTime = require('to-time-monthsfork');
 
 module.exports = {
 	name: 'closeall',
-	description: 'Closes all currently open tickets older than a specified time length',
+	description: 'Alle offenen Tickets die älter als angegeben sind schließen',
 	usage: '[time]',
 	aliases: ['ca'],
 	example: 'closeall 1mo 1w',
@@ -32,10 +32,10 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('❌ **No permission**')
-					.setDescription('You do not have permission to use this command as you are not a staff member.')
-					.addField('Usage', `\`${config.prefix}${this.name}${' ' + this.usage}\`\n`)
-					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+					.setTitle('❌ **Keine Berechtigung**')
+					.setDescription('Du kannst dieses Kommando nicht nutzen weil du kein Teammitglied bist.')
+					.addField('Nutzung', `\`${config.prefix}${this.name}${' ' + this.usage}\`\n`)
+					.addField('Hife', `Tippe \`${config.prefix}help ${this.name}\` für weitere Informationen`)
 					.setFooter(guild.name, guild.iconURL())
 			);
 		

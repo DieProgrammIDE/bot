@@ -21,10 +21,10 @@ module.exports = {
 		const notTicket = new MessageEmbed()
 			.setColor(config.err_colour)
 			.setAuthor(message.author.username, message.author.displayAvatarURL())
-			.setTitle('❌ **This isn\'t a ticket channel**')
-			.setDescription('Use this command in the ticket channel you want to add a user to, or mention the channel.')
-			.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
-			.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+			.setTitle('❌ **Dies ist kein Ticket-Kanal**')
+			.setDescription('Nutz diesen Command in dem Ticket-Kanal dem du einen Nutzer hinzufügen möchtest.')
+			.addField('Nutzung', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+			.addField('Hilfe', `Tippe \`${config.prefix}help ${this.name}\` für mehr Informationen`)
 			.setFooter(guild.name, guild.iconURL());
 
 		let ticket;
@@ -40,8 +40,8 @@ module.exports = {
 			ticket = await Ticket.findOne({ where: { channel: channel.id } });
 			if (!ticket) {
 				notTicket
-					.setTitle('❌ **Channel is not a ticket**')
-					.setDescription(`${channel} is not a ticket channel.`);
+					.setTitle('❌ **Kanal ist kein Ticket-Kanal**')
+					.setDescription(`${channel} ist kein Ticket-Kanal.`);
 				return message.channel.send(notTicket);
 			}
 		}
@@ -51,10 +51,10 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('❌ **No permission**')
-					.setDescription(`You don't have permission to alter ${channel} as it does not belong to you and you are not staff.`)
-					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
-					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+					.setTitle('❌ **Keine Berechtigungen**')
+					.setDescription(`Du hast keine Berechtigungg ${channel} zu bearbeiten weil er nicht dir gehört und du kein Teammitglied bist.`)
+					.addField('Nutzung', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+					.addField('Hilfe', `Tippe \`${config.prefix}help ${this.name}\` für mehr Informationen`)
 					.setFooter(guild.name, guild.iconURL())
 			);
 		}
@@ -66,10 +66,10 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('❌ **Unknown member**')
-					.setDescription('Please mention a valid member.')
-					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
-					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+					.setTitle('❌ **Unbekannter Nutzer**')
+					.setDescription('Bitte erwähne einen vorhandenen Nutzer.')
+					.addField('Nutzung', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+					.addField('Hilfe', `Tippe \`${config.prefix}help ${this.name}\` für mehr Informationen`)
 					.setFooter(guild.name, guild.iconURL())
 			);
 		}
@@ -87,8 +87,8 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(member.user.username, member.user.displayAvatarURL())
-						.setTitle('**Member added**')
-						.setDescription(`${member} has been added by ${message.author}`)
+						.setTitle('**Nutzer hinzugefügt**')
+						.setDescription(`${member} wurde von ${message.author} hinzugefügt`)
 						.setFooter(guild.name, guild.iconURL())
 				);
 			}
@@ -97,12 +97,12 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.colour)
 					.setAuthor(member.user.username, member.user.displayAvatarURL())
-					.setTitle('✅ **Member added**')
-					.setDescription(`${member} has been added to <#${ticket.channel}>`)
+					.setTitle('✅ **Nutzer hinzugefügt**')
+					.setDescription(`${member} wurde hinzugefügt zu <#${ticket.channel}>`)
 					.setFooter(guild.name, guild.iconURL())
 			);
 
-			log.info(`${message.author.tag} added a user to a ticket (#${message.channel.id})`);
+			log.info(`${message.author.tag} fügte einen Nutzer zu ${message.channel.id} hinzu`);
 		} catch (error) {
 			log.error(error);
 		}

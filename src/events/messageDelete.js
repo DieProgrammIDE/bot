@@ -18,7 +18,7 @@ module.exports = {
 			try {
 				await message.fetch();
 			} catch (err) {
-				log.warn('Failed to fetch deleted message');
+				log.warn('Fehler beim Laden der gelöschten Nachricht');
 				log.error(err.message);
 				return;
 			}

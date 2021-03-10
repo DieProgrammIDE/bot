@@ -38,8 +38,8 @@ module.exports = {
 			return channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
-					.setTitle('❌ **Error**')
-					.setDescription(`${config.name} has not been set up correctly. Could not find a 'support team' role with the id \`${config.staff_role}\``)
+					.setTitle('❌ **Fehler**')
+					.setDescription(`${config.name} wurde nicht richtig eingestellt. Konnte keine 'support team' Rolle mit der id \`${config.staff_role}\` finden`)
 					.setFooter(channel.guild.name, channel.guild.iconURL())
 			);
 		}
@@ -70,8 +70,8 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(u.username, u.displayAvatarURL())
-						.setTitle(`❌ **You already have ${tickets.count} or more open tickets**`)
-						.setDescription(`Use \`${config.prefix}close\` in a server channel to close unneeded tickets.\n\n${ticketList.join(',\n')}`)
+						.setTitle(`❌ **Du hast schon ${tickets.count} oder mehr offene Tickets**`)
+						.setDescription(`Nutz \`${config.prefix}close\` um nicht mehr benötigte Tickets zu schließen.\n\n${ticketList.join(',\n')}`)
 						.setFooter(channel.guild.name, channel.guild.iconURL())
 				);
 			} catch (e) {
@@ -79,9 +79,9 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(u.username, u.displayAvatarURL())
-						.setTitle(`❌ **You already have ${tickets.count} or more open tickets**`)
-						.setDescription(`Use \`${config.prefix}close\` to close unneeded tickets.\n\n${ticketList.join(',\n')}`)
-						.setFooter(channel.guild.name + ' | This message will be deleted in 15 seconds', channel.guild.iconURL())
+						.setTitle(`❌ **Du hast schon ${tickets.count} oder mehr offene Tickets**`)
+						.setDescription(`Nutz \`${config.prefix}close\` um nicht mehr benötigte Tickets zu schließen.\n\n${ticketList.join(',\n')}`)
+						.setFooter(channel.guild.name + ' | Die Nachricht wird in 15 Sekunden gelöscht', channel.guild.iconURL())
 				);
 				return m.delete({ timeout: 15000 });
 			}
@@ -120,7 +120,7 @@ module.exports = {
 				allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY']
 			}
 			],
-			reason: 'User requested a new support ticket channel (panel reaction)'
+			reason: 'Nutzer forderte einen neuen Support-Kanal an (panel reaction)'
 		}).then(async c => {
 			Ticket.update({
 				channel: c.id
@@ -144,7 +144,7 @@ module.exports = {
 				ping = `@${config.tickets.ping},\n`;
 			}
 
-			await c.send(ping + `${u} has created a new ticket`);
+			await c.send(ping + `${u} hat ein neues Ticket erstellt`);
 
 			if (config.tickets.send_img) {
 				const images = fs.readdirSync(join(__dirname, '../../user/images'));
@@ -185,7 +185,7 @@ module.exports = {
 						.setTimestamp()
 				);
 
-			log.info(`${u.tag} created a new ticket (#${name}) via panel`);
+			log.info(`${u.tag} neues Ticket erstellt (#${name}) über panel`);
 		}).catch(log.error);
 	}
 };

@@ -147,7 +147,7 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 					return resolve(new Error(`${res.status} (${res.message})`));
 				}
 
-				log.success(`Uploaded ticket #${ticket.id} archive to server`);
+				log.success(`Ticket #${ticket.id} Archiv hochgeladen`);
 
 				fs.unlinkSync(join(__dirname, raw));
 				fs.unlinkSync(join(__dirname, json));

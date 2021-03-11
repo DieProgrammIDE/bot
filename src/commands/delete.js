@@ -14,7 +14,7 @@ const { join } = require('path');
 
 module.exports = {
 	name: 'delete',
-	description: 'Delete a ticket. Similar to closing a ticket, but does not save transcript or archives.',
+	description: 'Ticket löschen, es werden keine Transkripte erstellt.',
 	usage: '[ticket]',
 	aliases: ['del'],
 	example: 'delete #ticket-17',
@@ -25,10 +25,10 @@ module.exports = {
 		const notTicket = new MessageEmbed()
 			.setColor(config.err_colour)
 			.setAuthor(message.author.username, message.author.displayAvatarURL())
-			.setTitle('❌ **This isn\'t a ticket channel**')
-			.setDescription('Use this command in the ticket channel you want to delete, or mention the channel.')
-			.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
-			.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+			.setTitle('❌ **Dies ist kein Ticket-Kanal**')
+			.setDescription('Nutz diesen Command in dem Ticket-Kanal, den du löschen möchtest.')
+			.addField('Nutzung', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+			.addField('Hilfe', `Tippe \`${config.prefix}help ${this.name}\` für mehr Informationen`)
 			.setFooter(guild.name, guild.iconURL());
 
 		let ticket;
@@ -53,8 +53,8 @@ module.exports = {
 			});
 			if (!ticket) {
 				notTicket
-					.setTitle('❌ **Channel is not a ticket**')
-					.setDescription(`${channel} is not a ticket channel.`);
+					.setTitle('❌ **Kanal ist kein Ticket-Kanal**')
+					.setDescription(`${channel} ist kein Ticket-Kanal.`);
 				return message.channel.send(notTicket);
 			}
 
@@ -64,10 +64,10 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('❌ **No permission**')
-					.setDescription(`You don't have permission to delete ${channel} as it does not belong to you and you are not staff.`)
-					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
-					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+					.setTitle('❌ **Keine Berechtigung**')
+					.setDescription(`Du hast keine Berechtigung ${channel} zu löschen, weil es weder dir gehört noch du zum Team gehörst.`)
+					.addField('Nutzung', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+					.addField('Hilfe', `Tippe \`${config.prefix}help ${this.name}\` für mehr Informationen`)
 					.setFooter(guild.name, guild.iconURL())
 			);
 
@@ -78,11 +78,11 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('❔ Are you sure?')
+					.setTitle('❔ Bist du dir sicher?')
 					.setDescription(
-						`:warning: This action is **irreversible**, the ticket will be completely removed from the database.
-						You will **not** be able to view a transcript/archive of the channel later.
-						Use the \`close\` command instead if you don't want this behaviour.\n**React with ✅ to confirm.**`)
+						`:warning: Diese Aktion ist **permanent**, das Ticket wird vollständig gelöscht.
+						Du wirst **kein** Transkript/Archiv dieses Tickets sehen können.
+						Nutz den \`close\` Command wenn du das Transkript erhalten willst.\n**Reagiere mit ✅ zum bestätigen.**`)
 					.setFooter(guild.name + ' | Expires in 15 seconds', guild.iconURL())
 			);
 
@@ -99,8 +99,8 @@ module.exports = {
 						new MessageEmbed()
 							.setColor(config.colour)
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
-							.setTitle('**Ticket deleted**')
-							.setDescription(`Ticket deleted by ${message.author}`)
+							.setTitle('**Ticket gelöscht**')
+							.setDescription(`Ticket gelöscht von ${message.author}`)
 							.setFooter(guild.name, guild.iconURL())
 					);
 
@@ -109,8 +109,8 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle(`✅ **Ticket ${ticket.id} deleted**`)
-						.setDescription('The channel will be automatically deleted in a few seconds.')
+						.setTitle(`✅ **Ticket ${ticket.id} gelöscht**`)
+						.setDescription('Der Kanal wird in einigen Sekunden automatisch gelöscht.')
 						.setFooter(guild.name, guild.iconURL())
 				);
 
@@ -130,8 +130,8 @@ module.exports = {
 						new MessageEmbed()
 							.setColor(config.err_colour)
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
-							.setTitle('❌ **Expired**')
-							.setDescription('You took too long to react; confirmation failed.')
+							.setTitle('❌ **Abgelaufen**')
+							.setDescription('Du hast nicht rechtzeitig geantwortet, Verifizierung fehlgeschlagen')
 							.setFooter(guild.name, guild.iconURL()));
 
 					message.delete({
@@ -162,16 +162,16 @@ module.exports = {
 			});
 
 
-			log.info(`${message.author.tag} deleted a ticket (#ticket-${ticket.id})`);
+			log.info(`${message.author.tag} löschte Ticket (#ticket-${ticket.id})`);
 
 			if (config.logs.discord.enabled) {
 				client.channels.cache.get(config.logs.discord.channel).send(
 					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle('Ticket deleted')
-						.addField('Creator', `<@${ticket.creator}>`, true)
-						.addField('Deleted by', message.author, true)
+						.setTitle('Ticket gelöscht')
+						.addField('Autor', `<@${ticket.creator}>`, true)
+						.addField('Gelöscht von ', message.author, true)
 						.setFooter(guild.name, guild.iconURL())
 						.setTimestamp()
 				);

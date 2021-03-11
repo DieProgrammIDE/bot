@@ -10,7 +10,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'panel',
-	description: 'Create or a panel widget in the channel the command is used in. Note that there can only be 1 panel.',
+	description: 'Panel erstellen',
 	usage: '',
 	aliases: ['widget'],
 	args: false,
@@ -38,10 +38,10 @@ module.exports = {
 			try {
 				panel = await client.channels.cache.get(chanID.get('value')).messages.fetch(msgID.get('value')); // get old panel message
 				if (panel) {
-					panel.delete({ reason: 'Creating new panel/widget' }).then(() => log.info('Deleted old panel')).catch(e => log.warn(e)); // delete old panel
+					panel.delete({ reason: 'Neues Panel/Widget erstellen' }).then(() => log.info('Altes panel gelöscht')).catch(e => log.warn(e)); // delete old panel
 				}
 			} catch (e) {
-				log.warn('Couldn\'t delete old panel');
+				log.warn('Konnte altes Panel nicht löschen');
 			}
 		}
 
@@ -60,6 +60,6 @@ module.exports = {
 		Setting.update({ value: message.channel.id }, { where: { key: 'panel_chan_id' }}); // update database
 		Setting.update({ value: panel.id }, { where: { key: 'panel_msg_id' }}); // update database
 
-		log.info(`${message.author.tag} created a panel widget`);
+		log.info(`${message.author.tag} hat ein Panel-Widget erstellt`);
 	}
 };

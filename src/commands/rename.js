@@ -10,7 +10,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'rename',
-	description: 'Rename a ticket channel',
+	description: 'Ticket-Kanal umbenennen',
 	usage: '<new name>',
 	aliases: ['none'],
 	example: 'rename important-ticket',
@@ -29,10 +29,10 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('❌ **This isn\'t a ticket channel**')
-					.setDescription('Use this command in the ticket channel you want to rename.')
-					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
-					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+					.setTitle('❌ **Dies ist kein Ticket-Kanal**')
+					.setDescription('Nutz diesen Befehl in dem Ticket-Kanal, den du umbenennen möchtest.')
+					.addField('Nutzung', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+					.addField('Hilfe', `Tippe \`${config.prefix}help ${this.name}\` für mehr Informationen`)
 					.setFooter(guild.name, guild.iconURL())
 			);
 		}
@@ -42,10 +42,10 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('❌ **No permission**')
-					.setDescription('You don\'t have permission to rename this channel as you are not staff.')
-					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
-					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+					.setTitle('❌ **Keine Berechtigung**')
+					.setDescription('Du hast keine Berechtigung diesen Kanal umzubenennen, weil du kein Teammitglied bist.')
+					.addField('Nutzung', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+					.addField('Hilfe', `Tippe \`${config.prefix}help ${this.name}\` für mehr Informationen`)
 					.setFooter(guild.name, guild.iconURL())
 			);
 
@@ -55,8 +55,8 @@ module.exports = {
 			new MessageEmbed()
 				.setColor(config.colour)
 				.setAuthor(message.author.username, message.author.displayAvatarURL())
-				.setTitle('✅ **Ticket updated**')
-				.setDescription('The name has been changed.')
+				.setTitle('✅ **Ticket aktualisiert**')
+				.setDescription('Name wurde geändert.')
 				.setFooter(client.user.username, client.user.displayAvatarURL())
 		);
 	}

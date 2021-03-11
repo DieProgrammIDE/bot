@@ -12,7 +12,7 @@ const { join } = require('path');
 
 module.exports = {
 	name: 'tickets',
-	description: 'List your recent tickets to access transcripts / archives.',
+	description: 'Letzte Tickets anzeigen um Zugriff zu transkripten zu erhalten.',
 	usage: '[@member]',
 	aliases: ['list'],
 	args: false,
@@ -24,8 +24,8 @@ module.exports = {
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
-					.setTitle('❌ **Error**')
-					.setDescription(`${config.name} has not been set up correctly. Could not find a 'support team' role with the id \`${config.staff_role}\``)
+					.setTitle('❌ **Fehler**')
+					.setDescription(`${config.name} wurde nicht richtig erstellt. Es konnte keine 'support team' Rolle mit der ID \`${config.staff_role}\` gefunden worden`)
 					.setFooter(guild.name, guild.iconURL())
 			);
 		}
@@ -39,10 +39,10 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle('❌ **No permission**')
-						.setDescription('You don\'t have permission to list others\' tickets as you are not staff.')
-						.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
-						.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+						.setTitle('❌ **Keine Berechtigung**')
+						.setDescription('Du hast keine Berechtigung Tickets anderer anzuzeigen.')
+						.addField('Nutzung', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+						.addField('Hilfe', `Tippe \`${config.prefix}help ${this.name}\` für mehr Informationen`)
 						.setFooter(guild.name, guild.iconURL())
 				);
 			}
@@ -70,7 +70,7 @@ module.exports = {
 			.setColor(config.colour)
 			.setAuthor(user.username, user.displayAvatarURL())
 			.setTitle(`${context === 'self' ? 'Your' : user.username + '\'s'} tickets`)
-			.setFooter(guild.name + ' | This message will be deleted in 60 seconds', guild.iconURL());
+			.setFooter(guild.name + ' | Diese Nachricht wird in 60 Sekunden gelöscht', guild.iconURL());
 
 		/* if (config.transcripts.web.enabled) {
 			embed.setDescription(`You can access all of your ticket archives on the [web portal](${config.transcripts.web.server}/${user.id}).`);
@@ -89,7 +89,7 @@ module.exports = {
 			let transcript = '';
 			let c = closedTickets.rows[t].channel;
 			if (config.transcripts.web.enabled || fs.existsSync(join(__dirname, `../../user/transcripts/text/${c}.txt`))) {
-				transcript = `\n> Type \`${config.prefix}transcript ${closedTickets.rows[t].id}\` to view.`;
+				transcript = `\n> Tippe \`${config.prefix}transcript ${closedTickets.rows[t].id}\` zum anzeigen.`;
 			}
 
 			closed.push(`> **#${closedTickets.rows[t].id}**: \`${desc}${desc.length > 20 ? '...' : ''}\`${transcript}`);
@@ -97,15 +97,15 @@ module.exports = {
 		}
 
 		let pre = context === 'self' ? 'You have' : user.username + ' has';
-		embed.addField('Open tickets', openTickets.count === 0 ? `${pre} no open tickets.` : open.join('\n\n'), false);
-		embed.addField('Closed tickets', closedTickets.count === 0 ? `${pre} no old tickets` : closed.join('\n\n'), false);
+		embed.addField('Geöffnete Tickets', openTickets.count === 0 ? `${pre} keine geöffneten Tickets.` : open.join('\n\n'), false);
+		embed.addField('Geschlossene Tickets', closedTickets.count === 0 ? `${pre} keine geschlossenen Tickets` : closed.join('\n\n'), false);
 
 		message.delete({timeout: 15000});
 
 		let channel;
 		try {
 			channel = message.author.dmChannel || await message.author.createDM();
-			message.channel.send('Sent to DM').then(msg => msg.delete({timeout: 15000}));
+			message.channel.send('Gesendet zur DM').then(msg => msg.delete({timeout: 15000}));
 		} catch (e) {
 			channel = message.channel;
 		}

@@ -10,7 +10,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'help',
-	description: 'Display help menu',
+	description: 'Zeigt Hilfe zu Kommandos an',
 	usage: '[command]',
 	aliases: ['command', 'commands'],
 	example: 'help new',
@@ -38,9 +38,9 @@ module.exports = {
 					.setTitle('Commands')
 					.setColor(config.colour)
 					.setDescription(
-						`\nThe commands you have access to are listed below. Type \`${config.prefix}help [command]\` for more information about a specific command.
+						`\nKommandos zu denen du Berechtigungen hast, stehen hierunter. Tippe \`${config.prefix}help [command]\` um genauere Informationen über einen spezifischen Befehl zu erhalten.
 						\n${cmds.join('\n\n')}
-						\nPlease contact a member of staff if you require assistance.`
+						\nBitte Kontaktiere bei Fragen ein Teammitglied.`
 					)
 					.setFooter(guild.name, guild.iconURL())
 			).catch((error) => {
@@ -56,7 +56,7 @@ module.exports = {
 				return message.channel.send(
 					new MessageEmbed()
 						.setColor(config.err_colour)
-						.setDescription(`❌ **Invalid command name** (\`${config.prefix}help\`)`)
+						.setDescription(`❌ **Ungültiges Kommando** (\`${config.prefix}help\`)`)
 				);
 
 
@@ -68,16 +68,16 @@ module.exports = {
 			if (command.long) cmd.setDescription(command.long);
 			else cmd.setDescription(command.description);
 
-			if (command.aliases) cmd.addField('Aliases', `\`${command.aliases.join(', ')}\``, true);
+			if (command.aliases) cmd.addField('Aliasen', `\`${command.aliases.join(', ')}\``, true);
 
-			if (command.usage) cmd.addField('Usage', `\`${config.prefix}${command.name} ${command.usage}\``, false);
+			if (command.usage) cmd.addField('Nutzung', `\`${config.prefix}${command.name} ${command.usage}\``, false);
 
-			if (command.usage) cmd.addField('Example', `\`${config.prefix}${command.example}\``, false);
+			if (command.usage) cmd.addField('Beispiel', `\`${config.prefix}${command.example}\``, false);
 
 
 			if (command.permission && !message.member.hasPermission(command.permission)) {
-				cmd.addField('Required Permission', `\`${command.permission}\` :exclamation: You don't have permission to use this command`, true);
-			} else cmd.addField('Required Permission', `\`${command.permission || 'none'}\``, true);
+				cmd.addField('Du benötigst die Berechtigung ', `\`${command.permission}\` :exclamation: Du hast keine Rechte für diesen Befehl`, true);
+			} else cmd.addField('Du benötigst die Berechtigung ', `\`${command.permission || 'none'}\``, true);
 
 			message.channel.send(cmd);
 		}

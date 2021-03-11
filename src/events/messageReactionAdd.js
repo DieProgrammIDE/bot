@@ -177,7 +177,7 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(u.username, u.displayAvatarURL())
-						.setTitle('New ticket (via panel)')
+						.setTitle('Neues Tickt (via panel)')
 						.setDescription(`\`${topic}\``)
 						.addField('Creator', u, true)
 						.addField('Channel', c, true)

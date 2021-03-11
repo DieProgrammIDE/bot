@@ -53,10 +53,10 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle('❌ **Invalid Timestamp**')
-						.setDescription(`The timestamp that you specified, \`${timestamp}\`, was invalid.`)
-						.addField('Usage', `\`${config.prefix}${this.name}${' ' + this.usage}\`\n`)
-						.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+						.setTitle('❌ **Ungültiges Datum**')
+						.setDescription(`Das gegebene Datum, \`${timestamp}\`, ist falsch.`)
+						.addField('Hilfe', `\`${config.prefix}${this.name}${' ' + this.usage}\`\n`)
+						.addField('Hife', `Tippe \`${config.prefix}help ${this.name}\` für weitere Informationen`)
 						.setFooter(guild.name, guild.iconURL())
 				);
 			}
@@ -82,8 +82,8 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.display)
-					.setTitle('❌ **No open tickets**')
-					.setDescription('There are no open tickets to close.')
+					.setTitle('❌ **Keine geöffneten Tickets**')
+					.setDescription('Es gibt keine geöffneten Tickets die geschlossen werden könnten.')
 					.setFooter(guild.name, guild.iconURL())
 			);
 
@@ -92,16 +92,16 @@ module.exports = {
 		if (config.commands.close.confirmation) {
 			let success;
 			let pre = config.transcripts.text.enabled || config.transcripts.web.enabled
-				? `You will be able to view an archived version of each ticket later with \`${config.prefix}transcript <id>\``
+				? `Du kannst dir später eine Archivierte Version des Tickets mit \`${config.prefix}transcript <id>\``
 				: '';
 
 			let confirm = await message.channel.send(
 				new MessageEmbed()
 					.setColor(config.colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(`❔ Are you sure you want to close **${tickets.count}** tickets?`)
-					.setDescription(`${pre}\n**React with ✅ to confirm.**`)
-					.setFooter(guild.name + ' | Expires in 15 seconds', guild.iconURL())
+					.setTitle(`❔ Bist du dir siche das du **${tickets.count}** Tickets schließen möchtest?`)
+					.setDescription(`${pre}\n**Reagiere mit ✅ um zu bestätigen.**`)
+					.setFooter(guild.name + ' | Läuft in 15 Sekunden', guild.iconURL())
 			);
 
 			await confirm.react('✅');
@@ -116,8 +116,8 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle(`**\`${tickets.count}\` tickets closed**`)
-						.setDescription(`**\`${tickets.count}\`** tickets closed by ${message.author}`)
+						.setTitle(`**\`${tickets.count}\` tickets geschlossen**`)
+						.setDescription(`**\`${tickets.count}\`** tickets geschlossen von ${message.author}`)
 						.setFooter(guild.name, guild.iconURL())
 				);
 
@@ -126,8 +126,8 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle(`✅ ** \`${tickets.count}\` tickets closed**`)
-						.setDescription('The channels will be automatically deleted in a few seconds, once the contents have been archived.')
+						.setTitle(`✅ ** \`${tickets.count}\` tickets geschlossen**`)
+						.setDescription('Der Kanal wird in einigen Sekunden automatisch gelöscht, sobald der Inhalt archiviert wurde.')
 						.setFooter(guild.name, guild.iconURL())
 				);
 
@@ -146,8 +146,8 @@ module.exports = {
 						new MessageEmbed()
 							.setColor(config.err_colour)
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
-							.setTitle('❌ **Expired**')
-							.setDescription('You took too long to react; confirmation failed.')
+							.setTitle('❌ **Abgelaufen**')
+							.setDescription('Du hast zu lange zum reagieren gebraucht, Verifizierung abgebrochen')
 							.setFooter(guild.name, guild.iconURL()));
 
 					message.delete({
@@ -183,7 +183,7 @@ module.exports = {
 						try {
 							dm = user.dmChannel || await user.createDM();
 						} catch (e) {
-							log.warn(`Could not create DM channel with ${user.tag}`);
+							log.warn(`Konnte keinen DM-Kanal mit ${user.tag} erstellen`);
 						}
 
 						let res = {};
@@ -194,7 +194,7 @@ module.exports = {
 							.setFooter(guild.name, guild.iconURL());
 							
 						if (fs.existsSync(paths.text)) {
-							embed.addField('Text Transcript', 'See attachment');
+							embed.addField('Text Transkript', 'Siehe Anhang');
 							res.files = [{
 								attachment: paths.text,
 								name: `ticket-${id}-${channel}.txt`
@@ -204,7 +204,7 @@ module.exports = {
 						if (fs.existsSync(paths.log) && fs.existsSync(paths.json)) {
 							let data = JSON.parse(fs.readFileSync(paths.json));
 							data.entities.users.forEach(u => users.push(u));
-							embed.addField('Web archive', await archive.export(Ticket, channel));
+							embed.addField('Web Archiv', await archive.export(Ticket, channel));
 						}
 
 						res.embed = embed;
@@ -213,7 +213,7 @@ module.exports = {
 							if (config.commands.close.send_transcripts) dm.send(res);
 							if (config.transcripts.channel.length > 1) client.channels.cache.get(config.transcripts.channel).send(res);
 						} catch (e) {
-							message.channel.send('❌ Couldn\'t send DM or transcript log message');
+							message.channel.send('❌ Konnte keine DM oder Transkript Nachricht senden');
 						}
 					}
 
@@ -225,11 +225,11 @@ module.exports = {
 						}
 					});
 
-					log.info(log.format(`${message.author.tag} closed ticket &7${id}&f`));
+					log.info(log.format(`${message.author.tag} geschlossen &7${id}&f`));
 
 					client.channels.fetch(channel)
 						.then(c => c.delete()
-							.then(o => log.info(`Deleted channel with name: '#${o.name}' <${o.id}>`))
+							.then(o => log.info(`Kanal gelöscht: '#${o.name}' <${o.id}>`))
 							.catch(e => log.error(e)))
 						.catch(e => log.error(e));
 
@@ -237,13 +237,13 @@ module.exports = {
 						let embed = new MessageEmbed()
 							.setColor(config.colour)
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
-							.setTitle(`${tickets.count} ${plural('ticket', tickets.count)} closed (${config.prefix}closeall)`)
-							.addField('Closed by', message.author, true)
+							.setTitle(`${tickets.count} ${plural('ticket', tickets.count)} geschlossen (${config.prefix}closeall)`)
+							.addField('Geschlossen von', message.author, true)
 							.setFooter(guild.name, guild.iconURL())
 							.setTimestamp();
 
 						if (users.length > 1)
-							embed.addField('Members', users.map(u => `<@${u}>`).join('\n'));
+							embed.addField('Mitglieder', users.map(u => `<@${u}>`).join('\n'));
 						
 						client.channels.cache.get(config.logs.discord.channel).send(embed);
 					}

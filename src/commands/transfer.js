@@ -10,7 +10,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'transfer',
-	description: 'Transfer ownership of a ticket channel',
+	description: 'Einen anderen Nutzer zum Besitzer befördern',
 	usage: '<@member>',
 	aliases: ['none'],
 	example: 'transfer @user',
@@ -29,8 +29,8 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('❌ **This isn\'t a ticket channel**')
-					.setDescription('Use this command in the ticket channel you want to change owner.')
+					.setTitle('❌ **Das ist kein Ticket-Kanal**')
+					.setDescription('Nutze diesen Befehl im Ticket-Kanal dessen Besitzer du ändern möchtest.')
 					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 					.setFooter(guild.name, guild.iconURL())
@@ -42,10 +42,10 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('❌ **No permission**')
-					.setDescription('You don\'t have permission to change ownership of this channel as you are not staff.')
-					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
-					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+					.setTitle('❌ **Keine Berechtigung**')
+					.setDescription('Du hast keine Berechtigung den Besitzer zu ändern weil du weder Inhaber noch ein Teammitglied bist.')
+					.addField('Nutzung', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+					.addField('Hilfe', `Tippe \`${config.prefix}help ${this.name}\` für mehr Informationen`)
 					.setFooter(guild.name, guild.iconURL())
 			);
 
@@ -56,10 +56,10 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('❌ **Unknown member**')
-					.setDescription('Please mention a valid member.')
-					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
-					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+					.setTitle('❌ **Unbekannter Nutzer**')
+					.setDescription('Bitte erwähne einen existierenden Nutzer.')
+					.addField('Nutzung', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+					.addField('Hilfe', `Tippe \`${config.prefix}help ${this.name}\` für mehr Informationen`)
 					.setFooter(guild.name, guild.iconURL())
 			);
 		}
@@ -79,8 +79,8 @@ module.exports = {
 			new MessageEmbed()
 				.setColor(config.colour)
 				.setAuthor(message.author.username, message.author.displayAvatarURL())
-				.setTitle('✅ **Ticket transferred**')
-				.setDescription(`Ownership of this ticket has been transferred to ${member}.`)
+				.setTitle('✅ **Ticket Berechtigung geändert**')
+				.setDescription(`Besitzer dieses Tickets geändert zu ${member}.`)
 				.setFooter(client.user.username, client.user.displayAvatarURL())
 		);
 	}

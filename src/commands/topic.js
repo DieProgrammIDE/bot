@@ -10,7 +10,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'topic',
-	description: 'Edit a ticket topic',
+	description: 'Ticket-Thema ändern',
 	usage: '<topic>',
 	aliases: ['edit'],
 	example: 'topic need help error',
@@ -29,10 +29,10 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('❌ **This isn\'t a ticket channel**')
-					.setDescription('Use this command in the ticket channel you want to close, or mention the channel.')
-					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
-					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+					.setTitle('❌ **Dies ist kein Ticket-Kanal**')
+					.setDescription('Nutz diesen Befehl im Ticket-Kanal den du schließen möchtest oder erwähne ihn.')
+					.addField('Nutzung', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+					.addField('Hilfe', `Tippe \`${config.prefix}help ${this.name}\` für mehr Informationen`)
 					.setFooter(guild.name, guild.iconURL())
 			);
 		}
@@ -43,8 +43,8 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('❌ **Description too long**')
-					.setDescription('Please limit your ticket topic to less than 256 characters. A short sentence will do.')
+					.setTitle('❌ **Beschreibung zu groß**')
+					.setDescription('Bitte nicht mehr als 256 characters nutzen.')
 					.setFooter(guild.name, guild.iconURL())
 			);
 		}
@@ -63,8 +63,8 @@ module.exports = {
 			new MessageEmbed()
 				.setColor(config.colour)
 				.setAuthor(message.author.username, message.author.displayAvatarURL())
-				.setTitle('✅ **Ticket updated**')
-				.setDescription('The topic has been changed.')
+				.setTitle('✅ **Ticket aktualisiert**')
+				.setDescription('Das Ticket wurde aktualisiert.')
 				.setFooter(client.user.username, client.user.displayAvatarURL())
 		);
 	}
